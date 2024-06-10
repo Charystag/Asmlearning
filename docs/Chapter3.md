@@ -145,3 +145,35 @@ Procedure for syscalls :
 1.	Setting up the registers in a special way (the syscall number into `%eax` at least and then 
 other informations depending upon the syscall we're trying to make)
 2.	Issuing the instruction `int $0x80` to call the Linux Kernel and do the syscall.
+
+## Planning the Program
+
+In our next program we'll try to find the maximum of a list of numbers. We need to plan the 
+following things to do so :
+
+-	Where will the original list of numbers be stored?
+-	What procedure will we need to follow to find the maximum number ?
+-	How much storage do we need to carry out that procedure ?
+-	Will all of the storage fit into registers, or do we need to use some memory as well?
+
+Let's say that the address where the list of numbers starts is `data_items`. Let's say that the 
+last number in the list will be a zero, so we know where to stop. We also need :
+-	A value to hold the current position in the list (`%edi`)
+-	A value to hold the current list element being examined (`%eax`)
+-	A value to hold the current highest value in the list (`%ebx`)
+
+When we begin the program and look at the first item of the list, we can set this value to be 
+the current larget element of the list. The current position fo the list will be zero. From then 
+we will follow the following steps :
+1.	Check if the current list element (`%eax`) and see if it's zero
+2.	If zero, exit
+3.	Increase the current position (`%edi`)
+4.	Load the next value in the list into the current value register (`%eax`). What addressing mode 
+might we use here? Why?
+
+<details>
+<summary>Solution</summary>
+
+We could use the **indexed** addressing mode because we have a starting location and a register 
+to offset the address.
+</details>
