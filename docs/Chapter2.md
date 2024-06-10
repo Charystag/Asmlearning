@@ -53,25 +53,89 @@ All the following modes will deal with memory addresses
 
 ### Know the Concepts
 
--	Describe the fetch-execute cycle
-	-	The fetch-execute cycle is the sequential execution of instructions by the CPU. It 
-	uses the Program Counter to the fetch the next instruction from the memory and then 
-	executes it.
--	What is a register? How would computation be more difficult without registers?
-	-	There are high-speed memory locations in the computer. Without registers, there couldn't 
-	be any computation as they are the place the CPU uses to do the computations.
--	How do you represent numbers larger than 255?
-	-	We can use combinations of bytes to represent them. The classical is 4-bytes combinations.
--	How big are the registers on the machines we will be using?
-	-	We are going to use 4 bytes registers	
--	How does a computer know how to interpret a given byte or set of bytes of memory?
-	-	The computer doesn't. It is the programer that tells the computer how to interpret 
-	the memory.
--	What are the addressing modes and what are they used for?
-	-	Addressing modes are the different ways we have to access data from memory.
--	What does the instruction pointer do?
-	-	The instruction pointer holds the address of the next instruction to be executed.
+1.	Describe the fetch-execute cycle
+
+<details>
+<summary>Solution</summary>
+
+The fetch-execute cycle is the sequential execution of instructions by the CPU. It 
+uses the Program Counter to the fetch the next instruction from the memory and then 
+executes it.
+</details>
+
+2.	What is a register? How would computation be more difficult without registers?
+
+<details>
+<summary>Solution</summary>
+
+There are high-speed memory locations in the computer. Without registers, there couldn't 
+be any computation as they are the place the CPU uses to do the computations.
+</details>
+
+3.	How do you represent numbers larger than 255?
+
+<details>
+<summary>Solution</summary>
+
+We can use combinations of bytes to represent them. The classical is 4-bytes combinations.
+</details>
+
+4.	How big are the registers on the machines we will be using?
+
+<details>
+<summary>Solution</summary>
+
+We are going to use 4 bytes registers	
+</details>
+
+5.	How does a computer know how to interpret a given byte or set of bytes of memory?
+
+<details>
+<summary>Solution</summary>
+
+The computer doesn't. It is the programer that tells the computer how to interpret 
+the memory.
+</details>
+
+6.	What are the addressing modes and what are they used for?
+
+<details>
+<summary>Solution</summary>
+
+Addressing modes are the different ways we have to access data from memory.
+</details>
+
+7.	What does the instruction pointer do?
+
+<details>
+<summary>Solution</summary>
+
+The instruction pointer holds the address of the next instruction to be executed.
+</details>
 
 ###	Use the Concepts
 
+1.	What data would you use in an employee record? How would you lay it out in memory?
 
+
+<details>
+<summary>Solution</summary>
+
+For an employee record, I'd use the following fields :
+
+-	Name
+-	Age
+-	Address
+-	Id
+
+To lay it out in memory I'd use the following structure :
+```txt
+Start of record :
+	Employee's name pointer (1 word) - start of record
+	Employee's age (1 word) - start of record + 0x4
+	Employee's address pointer (1 word) - start of record + 0x8
+	Employee's id (1 word) - start of record + 0xc
+```
+</details>
+
+2.	If I had the pointer the the beginning of the employee record above
