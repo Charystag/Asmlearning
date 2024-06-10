@@ -92,3 +92,56 @@ The first instruction is :
 ```assembly
 movl $1, %eax
 ```
+it transfers the number 1 into the %eax register. In assembly, many instructions have *operands*. 
+*movl* has two : *source* and *destination*. In this case, source is the literal number 1 and 
+destination is the `%eax` register.
+
+On most instructions that have two operands, the first is the source and the second is the 
+destination. In these case, the source isn't modified (ex : `addl`, `subl` and `imull`). Other 
+instructions, like `idivl` may have an operand hardcoded in.
+
+The `idivl` instruction requres the dividend to be in `%eax` and `%edx` to be zero. The quotient 
+will be transferred to `%eax`, the remainder to `%edx`. However the divisor can be any register or 
+memory location.
+
+On x86 processors, there are several general-purpose registers :
+
+-	`%eax`
+-	`%ebx`
+-	`%ecx`
+-	`%edx`
+-	`%edi`
+-	`%esi`
+
+In addition to these, there are several special-purpose registers, including :
+
+-	`%ebp`
+-	`%esp`
+-	`%eip`
+-	`%eflags`
+
+the movl instruction moves the number 1 into `%eax`. The `$` in front of the 1 indicates that we 
+want to use immediate mode addressing. Without the `$`, it would do direct addressing.
+
+We move 1 into `%eax` is that because we prepare to call the Linux kernel, `1` is the number of the 
+exit system call. See Appendix C (*page 209*) for a more complete list of the important Linux 
+System Calls.
+
+The parameters are store in other registers. The *exit* syscall requires a status code to be loaded 
+in `%ebx`. The value is returned to the system. This is what we do with the instruction :
+```assembly
+movl $0, %ebx
+```
+
+The os requires certain registers to be loaded in a certain way before making a system call. We will 
+transfer control to the kernel with the following instruction :
+```assembly
+int $0x80
+```
+The `int` stands for *interrupt*. `0x80` is the interrupt number to use. An *interrupt* interrupts 
+the normal program flow and transfers control of our program to Linux so that it will do a syscall.
+
+Procedure for syscalls :
+1.	Setting up the registers in a special way (the syscall number into `%eax` at least and then 
+other informations depending upon the syscall we're trying to make)
+2.	Issuing the instruction `int $0x80` to call the Linux Kernel and do the syscall.
