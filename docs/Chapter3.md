@@ -45,4 +45,50 @@ After that we can run the exit program by typing `./exit` and view the status co
 What to include into comments :
 -	The purpose of the code
 -	An overview of the processing involved
--	Anything strange the program does and why it does it
+-	Anything strange the program does and why it does it *Design the program and writes the comments 
+always having future programmers in mind*
+
+### Assembler directives/Pseudo operations
+
+After the comments, the first section says :
+```assembly
+.section .data
+```
+
+Anything starting with a period isn't directly translated into a machine instruction, it is an 
+instruction to the assembler itself. They are handled by the assembler and not run by the computer.
+
+The command `.section` breaks the program up into sections.
+
+-	The **data** section is where any memory storage needed for data is listed. Our program doesn't 
+use any but this section is listed for completeness. Almost every program needs a data section.
+-	The **text** section is where the program instructions live.
+
+The next instruction is :
+```assembly
+.globl _start
+```
+This instructs the assembler that `_start` is an important **symbol** to remember.
+
+-	A symbol is going to be replaced by something else during assembly or linking. They are 
+generally used to mark locations of programs or data, to refer them by name instead of location 
+number.
+
+`.globl` tells the assembler that the symbol will be needed by the linker. `_start` should always 
+be marked with `.globl`. Otherwise, when the program is loaded into memory, the computer won't 
+know where it starts.
+
+The next line 
+```assembly
+_start:
+```
+defines the value of the `_start` label.
+
+- **Label** : Symbol followed by a column. It defines a symbol's value.
+
+### Instructions
+
+The first instruction is :
+```assembly
+movl $1, %eax
+```
