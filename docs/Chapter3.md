@@ -37,3 +37,12 @@ ld exit.o -o exit
 
 After that we can run the exit program by typing `./exit` and view the status code by typing 
 `echo $?`.
+
+## Outline of an Assembly Language program
+
+### Comments
+
+What to include into comments :
+-	The purpose of the code
+-	An overview of the processing involved
+-	Anything strange the program does and why it does it
