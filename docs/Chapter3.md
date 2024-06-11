@@ -285,3 +285,30 @@ Except **immediate** mode, all of the addressing modes can be represented this w
 -	indirect addressing mode
 	-	it loads a value from the address indicated by a register. ex : move the value at the 
 	address held by `%eax` to `%ebx` by doing : `movl (%eax), %ebx`
+-	base pointer addressing mode
+	-	Similar to indirect addressing, except it adds a constant value to the address in the 
+	register. ex : a record where the age value is 4 bytes into the record, with the address 
+	of the record in `%eax` we can retrieve the age into `%ebx` with `movl 4(%eax), %ebx`
+
+Here are the addressing modes that can't be represented using the general form :
+
+-	immediate mode
+	-	Used to load direct values into register or memory locations. ex : to load the number 
+	12 into `%eax` we can run : `movl $12, %eax`
+-	register addressing mode
+	-	Register mode simply moves data in or out of a register. Register addressing mode was 
+	used for the other operand in the examples.
+
+Except immediate mode (which can only be a source operand), all modes can be source and destination 
+operands.
+
+The `movb` instruction allows to move one byte of data at a time (`movl` moves one word at a time).
+
+Since the registers are word-sized and not byte-sized, we will only use a portion of the register.
+
+For instance with `%eax`, if we wanted to work two bytes at a time we could just use `%ax`. `%ax` is 
+the least-significant half (the last part of the number) of the `%eax` register. `%ax` is divided 
+up into `%al` and `%ah`. `%al` is the least-significant byte of `%ax` and `%ah` is the most 
+significant.
+
+
