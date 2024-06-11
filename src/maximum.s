@@ -25,12 +25,15 @@ movl $0, %edi		# move 0 into the index register
 movl data_items(, %edi, 4), %eax	# load the first byte of data
 movl %eax, %ebx		# since this is the first item, %eax is
 					# the biggest
+cmpl $0, %eax		# first comparison as we don't need to start the 
+					# loop if 0 is in eax
+je loop_exit
 
 start_loop:			# start loop
-	cmpl $0, %eax		# check to see if we've hit the end
-	je loop_exit
 	incl %edi			# load next value
 	movl data_items(, %edi, 4), %eax
+	cmpl $0, %eax		# check to see if we've hit the end
+	je loop_exit
 	cmp %ebx, %eax		# compare values
 	jle start_loop		# jump to loop beginning if the new one 
 						# isn't bigger
