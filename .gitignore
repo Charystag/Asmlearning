@@ -1,8 +1,9 @@
 # Object files
 *.o
+obj
 
 # Vim Swap Files
 *.swp
 
-# Executable files
-*.out
+# Executable files folder
+bin

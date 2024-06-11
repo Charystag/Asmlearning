@@ -175,5 +175,18 @@ might we use here? Why?
 <summary>Solution</summary>
 
 We could use the **indexed** addressing mode because we have a starting location and a register 
-to offset the address.
+to offset the address with.
 </details>
+
+5.	Compare the current value (`%eax`) with the current highest value (`%ebx`).
+6.	If the current value is greater than the current highest value, replace the current highest 
+value with the current value.
+7.	Repeat.
+
+The *if* instructino are called *flow control* instructions because they tell the computers which 
+steps to follow and which paths to take.
+
+Non-exhaustive list of flow control instructions :
+-	Conditional jump
+-	Unconditional jump
+-	Loops
