@@ -311,4 +311,185 @@ the least-significant half (the last part of the number) of the `%eax` register.
 up into `%al` and `%ah`. `%al` is the least-significant byte of `%ax` and `%ah` is the most 
 significant.
 
+## Review
 
+### Know the Concepts
+
+1.	What does it mean if a line in the program starts with the '#' character?
+
+<details>
+<summary>Solution</summary>
+
+It is a comment
+</details>
+
+2.	What is the different between an assembly language file and an object code file?
+
+<details>
+<summary>Solution</summary>
+
+An assembly language file is human readable while an object code file is machine readable.
+</details>
+
+3.	What does the linker do?
+
+<details>
+<summary>Solution</summary>
+
+The linker takes one or more object files and combines them into a single executable file. See 
+the [linker wikipedia page](https://en.wikipedia.org/wiki/Linker_\(computing\))
+</details>
+
+4.	How do you check the result status code of the last program you ran?
+
+<details>
+<summary>Solution</summary>
+
+By running the command `echo $?`
+</details>
+
+5.	What is the difference between `movl $1, %eax` and `movl 1, %eax`?
+
+<details>
+<summary>Solution</summary>
+
+The first one is immediate mode. The value 1 goes into `%eax`. The second one is direct addressing 
+mode. Whatever value that is at the address 1 goes into `%eax`
+</details>
+
+6.	Which register holds the system call number ?
+
+<details>
+<summary>Solution</summary>
+
+In x86 assembly, the register `%eax` holds the system call number.
+</details>
+
+7.	What are indexes used for ?
+
+<details>
+<summary>Solution</summary>
+
+Indexes are used to iterate over ranges of addresses, we use them to retrieve the next element in 
+a sequence for example.
+</details>
+
+8.	Why do indexes usually start at 0?
+
+<details>
+<summary>Solution</summary>
+
+Indexes usually start at 0 because doing so allow the index to be an offset in memory. To see 
+more discussions about indexes starting at 0, see this [StackOverflow discussion](https://stackoverflow.com/questions/7320686/why-do-array-indices-start-at-zero-in-c)
+</details>
+
+9.	If I issued the command `movl data_items(, %edi, 4), %eax` and data\_items was address 3634 and 
+`%edi` held the value 13, what address would you be using to move into `%eax`.
+
+<details>
+<summary>Solution</summary>
+
+We would be using the address `3634 + 13 * 4 = 3686`
+</details>
+
+10.	List the general-purpose registers
+
+<details>
+<summary>Solution</summary>
+
+There are 6 general-purpose registers :
+-	`%eax`
+-	`%ebx`
+-	`%ecx`
+-	`%edx`
+-	`%edi`
+-	`esi`
+</details>
+
+11.	What is the difference between `movl` and `movb`?
+
+<details>
+<summary>Solution</summary>
+
+`movl` moves one word of data (4 bytes) while `movb` moves one byte of data.
+</details>
+
+12.	What is flow control ?
+
+<details>
+<summary>Solution</summary>
+
+It is telling the computer which path to take to execute the program. See the [Control flow](https://en.wikipedia.org/wiki/Control_flow) 
+wikipedia page.
+</details>
+
+13.	What does a conditional jump do?
+
+<details>
+<summary>Solution</summary>
+
+It jumps (or not) to another location based on the value of a condition
+</details>
+
+14.	What things do you have to plan for when writing a program?
+
+<details>
+<summary>Solution</summary>
+
+-	Where will our original data be stored?
+-	What procedure will we need to follow to reach our goal?
+-	How much storage do we need to carry out that procedure?
+-	Will all the storage fit into registers or do we need to use some memory as well?
+
+</details>
+
+15.	Go through every instruction and list what addressing mode is being used for each operand
+
+<details>
+<summary>Solution</summary>
+
+We need to go through every instruction in the `.text` section
+
+I won't list all the instructions here but there are basically 3 access mode used :
+-	Immediate access mode (ex : `$0`)
+-	Register access mode (ex : `%eax`)
+-	Indexed access mode (ex : `data_items(,%edi,4)`)
+</details>
+
+### Use the Concepts
+
+1.	Modify the [first program](/src/exit.s) to return the value 3
+
+<details>
+<summary>Solution</summary>
+
+Replace the `$0` on line 31 with `$3`
+</details>
+
+2.	Modify the [maximum](/src/maximum.s) program to find the minimum instead
+
+<details>
+<summary>Solution</summary>
+
+We had to move the check for 0 (as 0 is less than the minimum if the list only consist of 
+positive integers). We also had to either switch the positions of the registers in the comparison 
+or replace the jle with a jge on line 35. See the [minimum](/src/minimum.s) source code.
+</details>
+
+3.	Modify the [maximum](/src/maximum.s) program to use the number 255 to end the list rather 
+than the number 0
+
+<details>
+<summary>Solution</summary>
+
+We can replace 0 with 255 in all the comparisons.
+</details>
+
+4.	Modify the [maximum](/src/maximum.s) program to use an ending address rather than the number 
+0 to know when to stop
+
+<details>
+<summary>Solution</summary>
+
+
+</details>
