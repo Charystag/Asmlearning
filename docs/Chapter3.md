@@ -190,3 +190,98 @@ Non-exhaustive list of flow control instructions :
 -	Conditional jump
 -	Unconditional jump
 -	Loops
+
+### Analysing the program
+
+You can view the code for maximum.s [here](/src/maximum.s). Let's take a closer look at the program.
+
+In the data section we can find the label `data_items` which refers to the location that follows it.
+
+After this label we can find the `.long` directive which tells the assembly to reserve memory for the 
+list of numbers that follows it.
+
+Here are some of the directives we can use :
+-	`.byte` : One storage location for each number. Numbers between 0 and 255
+-	`.int` : Up to two storage locations for each number. Numbers between 0 and 65535
+-	`.long` : Up to four storage locations. Numbers between 0 and 4294967295
+-	`.ascii` : Up to one sstorage location. Ex : `.ascii "Hello there\0"`. Each ascii character 
+has to be in quotes.
+
+> We don't have a `.globl` declaration for `data_items` because it is refered only within this file.
+
+Let's see how to use the indexed addressing to load one data item into `%eax`. Here is the 
+instruction we use to do so :
+```assembly
+movl data_items(,%edi,4), %eax
+```
+
+We need to keep several thins in mind to understand this line :
+-	`data_items` is the locatino number of the start of our number list
+-	Each number is stores accross 4 storage locations (due to the `.long` declaration)
+-	`%edi` is holding the index of our `data_item`
+
+This line says "Start at the beginning of `data_items`, take the item number `%edi` and remember 
+that each number takes up four storagef locations.
+
+The general form of indexed addressing mode instructions in ASM is :
+```assembly
+movl BEGINNINGADDRESS(,%INDEXREGISTER,WORDSIZE)
+```
+
+> Remember that the `l` in `movl` stands for *move long* since we are moving a *long* value.
+
+> Actually, the WORDSIZE is our **multiplier** for our indexed addressing. This means we take 
+> the beginning of `data_items` and add `%edi * 4` to retrieve our needed number.
+
+At the beginning of our `start_loop`, we have these instructions :
+```assembly
+cmpl $0, %eax
+je end_loop
+```
+
+`cmpl` compare two long values. We compare 0 and the value stored in `%eax`. This comparison also 
+affects the `%eflags` (or status) register. If the values are equal (*jump equal*) we jump to the 
+`end_loop` location.
+
+> The comparison is to see if the *second* value is greater than the *first* one.
+
+There are many jump statements we can use :
+-	`je` : Jump if the values are equal
+-	`jg` : Jump if the second value is greater than the first
+-	`jge` : `jg` or `je`
+-	`jl` : Jump if the second value is less than the first one
+-	`jle` : `jl` or `je`
+-	`jmp` : Jump no matter what.
+
+If the last loaded element was not zero, we go to :
+```assembly
+incl %edi
+```
+which increments the value in %edi by one.
+
+## Addressing Modes
+
+The general form of memory address references is :
+```assembly
+ADDRESS_OR_OFFSET(%BASE_OR_OFFSET, %INDEX, MULTIPLIER)
+```
+
+All of the fields are optional. To compute the address we do the following computation :
+```assembly
+FINAL ADDRESS = ADDRESS_OR_OFFSET + %BASE_OR_OFFSET + MULTIPLIER * %INDEX
+```
+`ADDRESS_OR_OFFSET` and `MULTIPLIER` must both be constants while the other two must be registers. 
+If any of the pieces is left out, it is just substituted with zero in the equation.
+
+Except **immediate** mode, all of the addressing modes can be represented this way.
+
+-	direct addressing mode
+	-	ex : `movl ADDRESS, %eax` loads `%eax` with the value at memory address `ADDRESS`
+-	indexed addressing mode
+	-	We can use any general-purpose register as the index register. We can also have a constant 
+	multiplier of 1,2 or 4 for the index register. Let's say we have a string of bytes as 
+	`string_start` and wanted to access the third one and `%ecx` holds the value 2. To load 
+	it into `%eax` we can run : `movl string_start(, %ecx, 1), %eax`
+-	indirect addressing mode
+	-	it loads a value from the address indicated by a register. ex : move the value at the 
+	address held by `%eax` to `%ebx` by doing : `movl (%eax), %ebx`
