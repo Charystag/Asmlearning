@@ -24,7 +24,7 @@
 
 _start:
 
-mov $1, %eax	#This is the Linux kernel command
+movl $1, %eax	#This is the Linux kernel command
 				#number (system call) for exiting
 				#a program
 

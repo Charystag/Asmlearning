@@ -3,3 +3,6 @@
 
 # Vim Swap Files
 *.swp
+
+# Executable files
+*.out
