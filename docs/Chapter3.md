@@ -491,5 +491,16 @@ We can replace 0 with 255 in all the comparisons.
 <details>
 <summary>Solution</summary>
 
+Here is the version using leal to compute the addresses and implementing a base check to ensure
+that the number of items provided is the right one. See the [maximum\_addr program](/src/maximum_addr.s)
+</details>
 
+5.	Modify the [maximum](/src/maximum.s) program to use a length count rather than the number 0 
+to know when to stop.
+
+<details>
+<summary>Solution</summary>
+
+See the new [maximum\_length program](/src/maximum_length.s) to see the implementation using a 
+counter and the maximum length.
 </details>
