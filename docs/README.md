@@ -11,3 +11,4 @@ Here are my notes and solutions to the book
 ## Useful Sources
 
 - [A guide to x86 Assembly](https://flint.cs.yale.edu/cs421/papers/x86-asm/asm.html)
+- [Debugging Assembly code with gdb](https://web.cecs.pdx.edu/~apt/cs510comp/gdb.pdf) *A small introductory tutorial about x86 debugging with GDB*
