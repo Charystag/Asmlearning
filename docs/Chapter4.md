@@ -37,3 +37,11 @@ convention* because it describes how functions expect to get and receive data wh
 
 Assembly language can use any calling convention. In the rest of the book we'll use the calling 
 convention of the C programming language.
+
+## Assembly-Language Functions using the C Calling Convention
+
+### The Stack
+
+Each computer program that runs uses a region of memory called the **stack** to enable functions 
+to run properly. We can think of it as a pile of papers on our desk.
+
