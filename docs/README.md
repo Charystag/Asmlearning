@@ -7,6 +7,7 @@ Here are my notes and solutions to the book
 
 - [Chapter 2. Computer Architecture](/docs/Chapter2.md)
 - [Chapter 3. Your First Programs](/docs/Chapter3.md)
+- [Chapter 4. All About Functions](/docs/Chapter4.md)
 
 ## Useful Sources
 
