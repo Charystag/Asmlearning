@@ -8,22 +8,25 @@
 .section .data
 
 items_number:
-	.long	10
+	.long	14
 data_items:
-	.long	0, 13, 31, 41, 52, 23, 41, 52, 23, 95, 3189, 418, 123, 333
+	.long	0, 13, 31, 41, 52, 23, 41, 52, 23, 95, 18, 201, 123, 212
 
 .section .text
 .globl _start
 _start:
-	movl $-255, %ebx 	# Moving -255 to the register to have the minimum
-						# status code in case of error
-	cmpl $1, items_number(,4) 	# We compare 1 with the items_number to ensure
+	cmpl $1, items_number 	# We compare 1 with the items_number to ensure
 								# that we have at least 1 items in the list
-	jle end_loop
-	movl items_number(,4), %edx
+	jle err_start
+	movl items_number, %edx
 	leal data_items(,%edx,4), %ecx	# We move the address within data_items + items_number into %ecx
-	leal data_items(,4), %edx
+	leal data_items, %edx
+	movl (%edx), %ebx
 	jmp start_loop
+
+err_start:
+	movl $-1, %ebx
+	jmp end_loop
 
 start_loop:
 	cmpl %ecx, %edx
