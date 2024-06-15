@@ -504,3 +504,52 @@ to know when to stop.
 See the new [maximum\_length program](/src/maximum_length.s) to see the implementation using a 
 counter and the maximum length.
 </details>
+
+6.	What would the instruction `movl _start, %eax` do? Be specific, based on your knowledge of both 
+addressing modes and the meaning of `_start`. How would this differ from the instruction 
+`movl $_start, %eax`?
+
+<details>
+<summary>Solution</summary>
+
+The `_start` symbol is a symbol to indicate the linker where the program should start. As with 
+every symbols, it marks a location and refers to it by name instead of a location number.
+
+The first instruction : `movl _start, %eax` takes whatever value at the address pointed to by the 
+location `_start` and puts it into `%eax`.
+
+> This is direct addressing mode
+
+The second instruction : `movl $_start, %eax`, takes the litteral address pointed to by the location 
+`_start` and puts it into `%eax`
+
+> This is immediate addressing mode
+
+</details>
+
+### Going Further
+
+1.	Modify the first program to leave off the `int` instruction line. Assemble, link, and execute 
+the new program. What error message do you get? Why do you think this might be?
+
+<details>
+<summary>Solution</summary>
+
+See [this question](https://stackoverflow.com/questions/21148523/segmentation-fault-when-not-interrupting-in-assembly). 
+Posted on StackOverflow for more details. The explanation is that when not having a proper exit, the 
+CPU doesn't know when to interrupt and continues running whatever is in memory. The segmentation 
+fault occurs because the CPU is accessing invalid memory.
+</details>
+
+2.	So far, we have discussed three approaches to finding the end of the list - using a special 
+number, using the ending address, and using the length count. Which approach do you think is best? 
+Why? Which approach would you use if you knew the list was sorted? Why?
+
+<details>
+<summary>Solution</summary>
+
+I think that if we know the length of the list, we can use a length count with an index. Using a 
+special number might be useful as we don't need to know the length of the list beforehand but if 
+the list was sorted I'd automatically take the last value of the list and use the ending address 
+of the list or a length count.
+</details>
