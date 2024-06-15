@@ -2,11 +2,7 @@
 
 AS := as
 
-ASFLAGS := 
-
 LD := ld
-
-LDFLAGS := 
 
 SHELL = /bin/sh
 
@@ -29,3 +25,9 @@ $(BIN_DIR)/% : $(OBJ_DIR)/%.o | $(BIN_DIR)
 
 $(OBJ_DIR) $(BIN_DIR):
 	$(MK) $@
+
+clean:
+	$(RM) -r $(BIN_DIR)
+
+fclean: clean
+	$(RM) -r $(OBJ_DIR)
