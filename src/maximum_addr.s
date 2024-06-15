@@ -17,12 +17,12 @@ data_items:
 _start:
 	movl $-255, %ebx 	# Moving -255 to the register to have the minimum
 						# status code in case of error
-	cmpl $1, items_number(, ,4) 	# We compare 1 with the items_number to ensure
+	cmpl $1, items_number(,4) 	# We compare 1 with the items_number to ensure
 								# that we have at least 1 items in the list
 	jle end_loop
-	movl items_number(, ,4), %edx
+	movl items_number(,4), %edx
 	leal data_items(,%edx,4), %ecx	# We move the address within data_items + items_number into %ecx
-	leal data_items(, ,4), %edx
+	leal data_items(,4), %edx
 	jmp start_loop
 
 start_loop:
