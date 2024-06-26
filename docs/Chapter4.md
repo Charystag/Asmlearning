@@ -137,3 +137,28 @@ Global and static variables are treated exactly the same by Assembly language an
 The only difference between them are that global variables are used by many functions while sttic variables are used 
 by only one.
 
+When the function is done executing, it does 3 things:
+
+1.	It stores it's return value in `%eax`
+2.	It resets the stack to what is was when it was called (gets rid of the current stack frame and puts the stack frame 
+of the calling code back into effect).
+3.	It returns the control back to wherever it was called from. This is done using the `ret` instruction, which pops 
+whatever value is at the top of the stack and sets `%eip` to that value.
+
+> To return, we have to reset `%esp` and `%ebp` to what they were before the function began.
+
+To return from the function, we have to do the following:
+```assembly
+movl %ebp, %esp
+popl %ebp
+ret
+```
+The calling code has gained the control back and can now examine `%eax` for the return value. It also needs to pop off all 
+the function parameters pushed onto the stack in order to get the stack pointer back to where it was (one can also add 
+4 * number of params to `%esp` using the `addl` instruction if the parameters value are not needed anymore).
+
+> :warning: Destuction of Registers
+> When a function is called, we must assume that everything written in our registers will be wiped out. The only register that 
+> will be restored is `%ebp`. `%eax` is guaranteed to be overwritten and the others will likely be. If there are values to be saved 
+> before calling a function, the registers should be pushed onto the stack before pushing the paarameters. We will retrieve them 
+> by popping them off in reverser order after popping off the parameters.
